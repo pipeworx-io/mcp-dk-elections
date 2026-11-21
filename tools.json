@@ -1,0 +1,109 @@
+[
+  {
+    "name": "dk_elections_list_elections",
+    "description": "List the Danish national elections and referendums covered: Folketing elections, European Parliament elections and referendums, 2009 to the latest held, each with date, type and the geography levels available (country down to polling-station area). Municipal and regional elections and anything before 2009 are NOT covered. Source: Statistics Denmark election results.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Optional filter: folketingsvalg, europa-parlamentsvalg or folkeafstemning."
+        }
+      }
+    }
+  },
+  {
+    "name": "dk_elections_results",
+    "description": "Final-count results of one Danish national election or referendum by geography level, down to polling-station area: votes, percent and seats per party (or yes/no votes for a referendum), plus eligible voters, turnout and invalid votes. For landsdel and storkreds, omit area to get every unit. For opstillingskreds and afstemningsomraade, omit area to list the units and their ids (there are 92 and about 1,300+), then call again with area. Source: Statistics Denmark. Covers 2009 onward only; an earlier or unknown election returns an explicit not-covered answer.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "election": {
+          "type": "string",
+          "description": "Election date YYYY-MM-DD, or a year YYYY. Default: the latest election of the given type (latest overall if no type)."
+        },
+        "type": {
+          "type": "string",
+          "description": "folketingsvalg, europa-parlamentsvalg or folkeafstemning. Needed when a date has two elections (2009-06-07 and 2014-05-25 each had a European election and a referendum)."
+        },
+        "level": {
+          "type": "string",
+          "description": "Geography level: country, landsdel (3 regions), storkreds (10 multi-member districts), opstillingskreds (92 nomination districts) or afstemningsomraade (polling-station area, the finest level). Default: country."
+        },
+        "area": {
+          "type": "string",
+          "description": "Unit name (or part of it) or unit id at that level, e.g. \"Københavns Storkreds\", \"1. Østerbro\", \"10. Kreds, Bülowsvej\"."
+        },
+        "within": {
+          "type": "string",
+          "description": "Optional parent unit name or id, to disambiguate area names that occur under more than one parent."
+        }
+      }
+    }
+  },
+  {
+    "name": "dk_elections_party_over_time",
+    "description": "One party's vote and seat results across Danish national elections 2009 to the latest, for the whole country or for one named area at any level (areas are matched across elections by NAME; boundaries change, so a polling-area match is best effort and flagged). Party by letter (A, V, Ø) or name text (Socialdemokratiet, Liberal Alliance). Defaults to Folketing elections. Source: Statistics Denmark. Before 2009 is not covered.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "party": {
+          "type": "string",
+          "description": "Party letter (A, B, C, F, I, M, O, V, Ø, Å, Æ ...) or part of the party name. Letters were reassigned over time: a letter query returns the party that held it in each election, with its name."
+        },
+        "type": {
+          "type": "string",
+          "description": "folketingsvalg (default), europa-parlamentsvalg or folkeafstemning."
+        },
+        "level": {
+          "type": "string",
+          "description": "Geography level: country, landsdel (3 regions), storkreds (10 multi-member districts), opstillingskreds (92 nomination districts) or afstemningsomraade (polling-station area, the finest level). Default: country."
+        },
+        "area": {
+          "type": "string",
+          "description": "Unit name or part of it. Required when level is not country."
+        },
+        "within": {
+          "type": "string",
+          "description": "Optional parent unit name or id, to disambiguate."
+        },
+        "from_year": {
+          "type": "number",
+          "description": "Optional first year, 2009 or later."
+        }
+      },
+      "required": [
+        "party"
+      ]
+    }
+  },
+  {
+    "name": "dk_elections_turnout",
+    "description": "Voter turnout for Danish national elections: eligible voters, votes cast, turnout percent and invalid votes, for the whole country or one named area. Give election for one election; omit it for turnout across all elections of the type (default Folketing) from 2009. Source: Statistics Denmark. Before 2009 is not covered.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "election": {
+          "type": "string",
+          "description": "Election date YYYY-MM-DD or year. Omit for all elections of the type."
+        },
+        "type": {
+          "type": "string",
+          "description": "folketingsvalg (default when election is omitted), europa-parlamentsvalg or folkeafstemning."
+        },
+        "level": {
+          "type": "string",
+          "description": "Geography level: country, landsdel (3 regions), storkreds (10 multi-member districts), opstillingskreds (92 nomination districts) or afstemningsomraade (polling-station area, the finest level). Default: country."
+        },
+        "area": {
+          "type": "string",
+          "description": "Unit name or part of it. Required when level is not country."
+        },
+        "within": {
+          "type": "string",
+          "description": "Optional parent unit name or id, to disambiguate."
+        }
+      }
+    }
+  }
+]

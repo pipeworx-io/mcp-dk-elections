@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.pipeworx-io/dk-elections",
+  "title": "Dk Elections",
+  "description": "Danish national election results (Statistics Denmark, final-count results, 2009 to the latest…",
+  "version": "0.1.0",
+  "websiteUrl": "https://pipeworx.io/packs/dk-elections",
+  "repository": {
+    "url": "https://github.com/pipeworx-io/mcp-dk-elections",
+    "source": "github"
+  },
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://gateway.pipeworx.io/dk-elections/mcp"
+    }
+  ]
+}
